@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Noir Club MX</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+<header class="topbar">
+<a class="brand" href="#inicio"><img id="logoImg" class="logo hidden"><span id="brandText">Noir Club MX</span></a>
+<nav><a href="#tienda">Tienda</a><a href="#nosotros">Nosotros</a><a id="igLink" target="_blank" class="social">Instagram</a><a id="ttLink" target="_blank" class="social">TikTok</a><button id="adminBtn" class="ghost">Administrar</button></nav>
+</header>
+
+<main>
+<section id="inicio" class="hero">
+<div><p class="eyebrow" id="heroEyebrow">NOIR CLUB MX</p><h1 id="heroTitle">Productos buenos.<br><em>Precios mejores.</em></h1><p id="heroDesc" class="hero-copy">Compramos a mayoreo para ofrecer productos a precios competitivos.</p><a class="button" href="#tienda" id="heroButton">Ver productos</a></div>
+<div class="hero-card"><img id="heroImage" class="hero-photo hidden"><div id="heroFallback"><span>NCMX</span><p>MAYOREO · REVENTA</p></div></div>
+</section>
+
+<section id="tienda" class="shop"><div class="section-head"><div><p class="eyebrow">CATÁLOGO</p><h2>Nuestros productos</h2></div><span id="count"></span></div><div id="categories" class="categories"></div></section>
+<section id="nosotros" class="about"><p class="eyebrow">NOIR CLUB MX</p><h2 id="aboutTitle">Compra a buen precio. Revende con margen.</h2><p id="aboutText">Somos un negocio de reventa: conseguimos productos a mayoreo y seleccionamos piezas para ofrecerlas a nuestros clientes.</p></section>
+</main>
+
+<footer>
+<div class="footer-brand"><div id="footerName">© 2026 Noir Club MX</div><p>Encuéntranos y contáctanos directamente.</p></div>
+<div class="contact-grid">
+<a id="igFooter" class="contact-card" target="_blank"><span class="contact-icon">◎</span><span><strong>Instagram</strong><small>Visita nuestro perfil</small></span><span class="arrow">↗</span></a>
+<a id="ttFooter" class="contact-card" target="_blank"><span class="contact-icon">♪</span><span><strong>TikTok</strong><small>Visita nuestro perfil</small></span><span class="arrow">↗</span></a>
+<a id="fbFooter" class="contact-card" target="_blank"><span class="contact-icon">f</span><span><strong>Facebook</strong><small>Visita nuestro perfil</small></span><span class="arrow">↗</span></a>
+<a id="wa1Footer" class="contact-card whatsapp" target="_blank"><span class="contact-icon">◉</span><span><strong>WhatsApp 1</strong><small>Escríbenos por WhatsApp</small></span><span class="arrow">↗</span></a>
+<a id="wa2Footer" class="contact-card whatsapp" target="_blank"><span class="contact-icon">◉</span><span><strong>WhatsApp 2</strong><small>Escríbenos por WhatsApp</small></span><span class="arrow">↗</span></a>
+</div></footer>
+
+<div id="productModal" class="modal hidden"><div class="product-panel">
+<button class="close" id="closeProduct">×</button><div id="productDetail"></div>
+</div></div>
+
+<div id="adminModal" class="modal hidden"><div class="panel"><button class="close" id="closeAdmin">×</button>
+<div id="loginView"><p class="eyebrow">ACCESO PRIVADO</p><h2>Administrar tienda</h2><input id="password" type="password" placeholder="Contraseña"><button class="button full" id="login">Entrar</button><p class="hint">Solo tú puedes administrar el catálogo. Los cambios se guardan en la nube y se ven para todos.</p></div>
+<div id="adminView" class="hidden">
+<div class="tabs"><button class="tab active" data-tab="productsTab">Productos</button><button class="tab" data-tab="categoriesTab">Secciones</button><button class="tab" data-tab="settingsTab">Configuración</button><span id="saveStatus" class="save-status"></span></div>
+
+<div id="productsTab"><div class="admin-head"><div><p class="eyebrow">CATÁLOGO</p><h2>Productos</h2></div><button class="button" id="addProduct">+ Nuevo producto</button></div><div id="adminProducts"></div></div>
+
+<div id="categoriesTab" class="hidden"><div class="admin-head"><div><p class="eyebrow">CATEGORÍAS</p><h2>Secciones</h2></div><button class="button" id="addCategory">+ Nueva sección</button></div><p class="hint">Desactiva una sección para mostrar “Próximamente” y bloquear su catálogo al público.</p><div id="adminCategories"></div></div>
+
+<div id="settingsTab" class="hidden"><p class="eyebrow">PERSONALIZA TU TIENDA</p><h2>Configuración</h2>
+<div class="settings-grid">
+<label>Nombre de tienda<input data-setting="name"></label><label>Texto pequeño<input data-setting="eyebrow"></label>
+<label>Título principal<input data-setting="title"></label><label>Texto del botón<input data-setting="button"></label>
+<label>Descripción principal<textarea data-setting="description"></textarea></label><label>Título “Nosotros”<input data-setting="aboutTitle"></label>
+<label>Descripción “Nosotros”<textarea data-setting="aboutText"></textarea></label>
+<label>Instagram<input data-setting="instagram"></label><label>TikTok<input data-setting="tiktok"></label><label>Facebook<input data-setting="facebook"></label>
+<label>WhatsApp 1<input data-setting="whatsapp1" placeholder="5215512345678"></label><label>WhatsApp 2<input data-setting="whatsapp2" placeholder="5215512345678"></label>
+<label>Logo (URL)<input data-setting="logo"></label><label>Imagen de portada (URL)<input data-setting="heroImage"></label>
+<label>Color principal<input type="color" data-setting="accent"></label><label>Color de fondo<input type="color" data-setting="background"></label>
+</div><button class="button full" id="saveSettings">Guardar configuración</button></div>
+<button class="danger full" id="reset">Restaurar todo</button>
+</div></div></div>
+
+<script src="app.js"></script></body></html>
