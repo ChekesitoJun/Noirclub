@@ -3,6 +3,11 @@ import { db } from "@/lib/db"
 import { settings, categories, products } from "@/lib/db/schema"
 import { isAdmin } from "@/lib/admin-auth"
 
+function serializeImages(value: unknown) {
+  if (Array.isArray(value)) return JSON.stringify(value.filter((image) => typeof image === "string"))
+  return String(value ?? "")
+}
+
 export async function GET() {
   return NextResponse.json({ admin: await isAdmin() })
 }
@@ -52,7 +57,7 @@ export async function POST(request: Request) {
           size: String(p.size ?? ""),
           model: String(p.model ?? ""),
           description: String(p.desc ?? ""),
-          image: String(p.image ?? ""),
+          image: serializeImages(p.images ?? p.image),
           sold: Boolean(p.sold),
           isNew: Boolean(p.isNew),
           sortOrder: i,
