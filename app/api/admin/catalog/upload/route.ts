@@ -2,7 +2,7 @@ import { put } from "@vercel/blob"
 import { NextResponse } from "next/server"
 import { isAdmin } from "@/lib/admin-auth"
 
-const MAX_FILE_SIZE = 8 * 1024 * 1024
+const MAX_FILE_SIZE = 25 * 1024 * 1024
 const ALLOWED_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"])
 
 export async function POST(request: Request) {
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Formato no permitido. Usa JPG, PNG, WEBP o GIF" }, { status: 400 })
   }
   if (file.size > MAX_FILE_SIZE) {
-    return NextResponse.json({ error: "La imagen no puede pesar más de 8 MB" }, { status: 400 })
+    return NextResponse.json({ error: "La imagen no puede pesar más de 25 MB" }, { status: 400 })
   }
 
   try {
