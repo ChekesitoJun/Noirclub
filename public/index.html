@@ -14,7 +14,7 @@
 <div class="hero-card"><img id="heroImage" class="hero-photo hidden"><div id="heroFallback"><span>NCMX</span><p>MAYOREO · REVENTA</p></div></div>
 </section>
 
-<section id="tienda" class="shop"><div class="section-head"><div><p class="eyebrow">CATÁLOGO</p><h2>Nuestros productos</h2></div><span id="count"></span></div><div class="catalog-search"><label for="catalogSearch">Buscar productos</label><input id="catalogSearch" type="search" placeholder="Busca por nombre, modelo o sección" autocomplete="off"></div><div id="categories" class="categories"></div></section>
+<section id="tienda" class="shop"><div class="section-head"><div><p class="eyebrow">CATÁLOGO</p><h2>Nuestros productos</h2></div><span id="count"></span></div><div class="catalog-tools"><div class="catalog-search"><label for="catalogSearch">Buscar productos</label><input id="catalogSearch" type="search" placeholder="Busca por nombre, modelo o sección" autocomplete="off"></div><label class="sort-control">Ordenar por<select id="catalogSort"><option value="featured">Más recientes</option><option value="price-low">Precio: menor a mayor</option><option value="price-high">Precio: mayor a menor</option><option value="name">Nombre A-Z</option></select></label><button id="cartButton" class="cart-button" type="button">Carrito <span id="cartCount">0</span></button></div><div id="categories" class="categories"></div></section>
 <section id="nosotros" class="about"><p class="eyebrow">NOIR CLUB MX</p><h2 id="aboutTitle">Compra a buen precio. Revende con margen.</h2><p id="aboutText">Somos un negocio de reventa: conseguimos productos a mayoreo y seleccionamos piezas para ofrecerlas a nuestros clientes.</p></section>
 </main>
 
@@ -27,6 +27,8 @@
 <a id="wa1Footer" class="contact-card whatsapp" target="_blank"><span class="contact-icon">◉</span><span><strong>WhatsApp 1</strong><small>Escríbenos por WhatsApp</small></span><span class="arrow">↗</span></a>
 <a id="wa2Footer" class="contact-card whatsapp" target="_blank"><span class="contact-icon">◉</span><span><strong>WhatsApp 2</strong><small>Escríbenos por WhatsApp</small></span><span class="arrow">↗</span></a>
 </div></footer>
+
+<div id="cartModal" class="modal hidden"><div class="panel cart-panel"><button class="close" id="closeCart">×</button><p class="eyebrow">TU PEDIDO</p><h2>Carrito</h2><div id="cartItems"></div><div class="cart-footer"><strong>Total <span id="cartTotal">$0</span></strong><a id="cartWhatsapp" class="button full" target="_blank">Pedir por WhatsApp</a></div></div></div>
 
 <div id="productModal" class="modal hidden"><div class="product-panel">
 <button class="close" id="closeProduct">×</button><div id="productDetail"></div>
