@@ -38,13 +38,16 @@ async function saveCatalog(){
   try{
     const res=await fetch("/api/admin/catalog",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({settings,categories,products})});
     if(res.status===401){isAdmin=false;alert("Tu sesión expiró. Vuelve a iniciar sesión.");location.reload();return;}
-    if(!res.ok)throw new Error("save failed");
+    if(!res.ok){
+      const detail=await res.json().catch(()=>({}));
+      throw new Error(detail.error||`Error del servidor (${res.status})`);
+    }
     setSaveStatus("Guardado ✓","saved");
     clearTimeout(saveStatusTimer);
     saveStatusTimer=setTimeout(()=>setSaveStatus("",""),2000);
   }catch(e){
     console.log("[v0] Error guardando:",e.message);
-    setSaveStatus("Error al guardar","error");
+    setSaveStatus(e.message||"Error al guardar","error");
   }
 }
 function persist(){render();renderAdminProducts();renderAdminCategories();scheduleSave();}

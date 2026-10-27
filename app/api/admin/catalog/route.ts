@@ -26,45 +26,55 @@ export async function POST(request: Request) {
   const incomingCategories = Array.isArray(body.categories) ? body.categories : []
   const incomingProducts = Array.isArray(body.products) ? body.products : []
 
-  await db.transaction(async (tx) => {
-    await tx
-      .insert(settings)
-      .values({ id: 1, data: incomingSettings })
-      .onConflictDoUpdate({ target: settings.id, set: { data: incomingSettings } })
+  const productIds = incomingProducts.map((p: any) => Number(p.id))
+  if (productIds.some((id: number) => !Number.isSafeInteger(id) || id <= 0) || new Set(productIds).size !== productIds.length) {
+    return NextResponse.json({ error: "Cada producto debe tener un ID único válido." }, { status: 400 })
+  }
 
-    await tx.delete(categories)
-    await tx.delete(products)
+  try {
+    await db.transaction(async (tx) => {
+      await tx
+        .insert(settings)
+        .values({ id: 1, data: incomingSettings })
+        .onConflictDoUpdate({ target: settings.id, set: { data: incomingSettings } })
 
-    if (incomingCategories.length) {
-      await tx.insert(categories).values(
-        incomingCategories.map((c: any, i: number) => ({
-          id: String(c.id),
-          name: String(c.name ?? ""),
-          description: String(c.description ?? ""),
-          visible: Boolean(c.visible),
-          sortOrder: i,
-        })),
-      )
-    }
+      await tx.delete(categories)
+      await tx.delete(products)
 
-    if (incomingProducts.length) {
-      await tx.insert(products).values(
-        incomingProducts.map((p: any, i: number) => ({
-          id: Number(p.id),
-          category: String(p.category ?? ""),
-          name: String(p.name ?? ""),
-          price: Math.max(0, Math.round(Number(p.price) || 0)),
-          size: String(p.size ?? ""),
-          model: String(p.model ?? ""),
-          description: String(p.desc ?? ""),
-          image: serializeImages(p.images ?? p.image),
-          sold: Boolean(p.sold),
-          isNew: Boolean(p.isNew),
-          sortOrder: i,
-        })),
-      )
-    }
-  })
+      if (incomingCategories.length) {
+        await tx.insert(categories).values(
+          incomingCategories.map((c: any, i: number) => ({
+            id: String(c.id),
+            name: String(c.name ?? ""),
+            description: String(c.description ?? ""),
+            visible: Boolean(c.visible),
+            sortOrder: i,
+          })),
+        )
+      }
+
+      if (incomingProducts.length) {
+        await tx.insert(products).values(
+          incomingProducts.map((p: any, i: number) => ({
+            id: Number(p.id),
+            category: String(p.category ?? ""),
+            name: String(p.name ?? ""),
+            price: Math.max(0, Math.round(Number(p.price) || 0)),
+            size: String(p.size ?? ""),
+            model: String(p.model ?? ""),
+            description: String(p.desc ?? ""),
+            image: serializeImages(p.images ?? p.image),
+            sold: Boolean(p.sold),
+            isNew: Boolean(p.isNew),
+            sortOrder: i,
+          })),
+        )
+      }
+    })
+  } catch (error) {
+    console.error("[v0] Error guardando catálogo:", error)
+    return NextResponse.json({ error: "No se pudo guardar el catálogo. Revisa los datos e inténtalo de nuevo." }, { status: 500 })
+  }
 
   return NextResponse.json({ ok: true })
 }
