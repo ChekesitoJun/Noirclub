@@ -8,7 +8,9 @@ let isAdmin=false;
 
 const $=s=>document.querySelector(s), money=n=>new Intl.NumberFormat("es-MX",{style:"currency",currency:"MXN",maximumFractionDigits:0}).format(n);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
-const getImages=p=>Array.isArray(p.images)&&p.images.length?p.images:(p.image?[p.image]:[]);
+const isImageUrl=value=>{try{const url=new URL(String(value||""));return ["http:","https:"].includes(url.protocol)}catch{return false}};
+const getImages=p=>{const images=Array.isArray(p.images)?p.images:(p.image?[p.image]:[]);return images.filter(isImageUrl)};
+function cleanCatalogPayload(){return {settings:{...settings,logo:isImageUrl(settings.logo)?settings.logo:"",heroImage:isImageUrl(settings.heroImage)?settings.heroImage:""},categories:categories.map(c=>({...c})),products:products.map(p=>{const images=getImages(p);return {...p,image:images[0]||"",images}})}}
 
 // ---- Data loading ----
 async function loadCatalog(){
@@ -17,8 +19,10 @@ async function loadCatalog(){
     if(!res.ok)throw new Error("bad response");
     const data=await res.json();
     settings={...defaults,...(data.settings||{})};
+    settings.logo=isImageUrl(settings.logo)?settings.logo:"";
+    settings.heroImage=isImageUrl(settings.heroImage)?settings.heroImage:"";
     categories=Array.isArray(data.categories)&&data.categories.length?data.categories:[];
-    products=Array.isArray(data.products)?data.products:[];
+    products=Array.isArray(data.products)?data.products.map(p=>({...p,images:getImages(p),image:getImages(p)[0]||""})):[];
   }catch(e){
     console.log("[v0] Error cargando catálogo:",e.message);
   }
@@ -36,7 +40,7 @@ function scheduleSave(){
 }
 async function saveCatalog(){
   try{
-    const res=await fetch("/api/admin/catalog",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({settings,categories,products})});
+    const res=await fetch("/api/admin/catalog",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(cleanCatalogPayload())});
     if(res.status===401){isAdmin=false;alert("Tu sesión expiró. Vuelve a iniciar sesión.");location.reload();return;}
     if(!res.ok){
       const detail=await res.json().catch(()=>({}));
