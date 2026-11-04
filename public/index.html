@@ -28,9 +28,9 @@
 <a id="wa2Footer" class="contact-card whatsapp" target="_blank"><span class="contact-icon">◉</span><span><strong>WhatsApp 2</strong><small>Escríbenos por WhatsApp</small></span><span class="arrow">↗</span></a>
 </div></footer>
 
-<div id="cartModal" class="modal hidden"><div class="panel cart-panel"><button class="close" id="closeCart">×</button><p class="eyebrow">TU PEDIDO</p><h2>Carrito</h2><div id="cartItems"></div><div class="cart-footer"><strong>Total <span id="cartTotal">$0</span></strong><a id="cartWhatsapp" class="button full" target="_blank">Pedir por WhatsApp</a></div></div></div>
+<div id="cartModal" class="modal hidden"><div class="panel cart-panel"><button class="close" id="closeCart">×</button><p class="eyebrow">TU PEDIDO</p><h2>Carrito</h2><div id="cartItems"></div><div class="cart-footer"><strong>Total <span id="cartTotal">$0</span></strong><button id="checkoutButton" class="button full" type="button">Comprar ahora</button></div></div></div>
 
-<div id="productModal" class="modal hidden"><div class="product-panel">
+<div id="checkoutModal" class="modal hidden"><div class="panel checkout-panel"><button class="close" id="closeCheckout">×</button><p class="eyebrow">FINALIZAR COMPRA</p><h2>Elige tu forma de pago</h2><form id="checkoutForm"><label>Nombre completo<input id="buyerName" required autocomplete="name"></label><label>Correo electrónico<input id="buyerEmail" type="email" required autocomplete="email"></label><label>Teléfono<input id="buyerPhone" type="tel" required autocomplete="tel" placeholder="+52 55 1234 5678"></label><div class="payment-methods"><button type="button" class="payment-choice" data-method="card">Tarjeta</button><button type="button" class="payment-choice" data-method="paypal">PayPal</button><button type="button" class="payment-choice" data-method="mercadopago">Mercado Pago</button></div><button class="button full" type="submit">Continuar al pago</button><p id="checkoutMessage" class="hint"></p></form></div></div><div id="productModal" class="modal hidden"><div class="product-panel">
 <button class="close" id="closeProduct">×</button><div id="productDetail"></div>
 </div></div>
 
@@ -50,7 +50,7 @@
 <label>Descripción principal<textarea data-setting="description"></textarea></label><label>Título “Nosotros”<input data-setting="aboutTitle"></label>
 <label>Descripción “Nosotros”<textarea data-setting="aboutText"></textarea></label>
 <label>Instagram<input data-setting="instagram"></label><label>TikTok<input data-setting="tiktok"></label><label>Facebook<input data-setting="facebook"></label>
-<label>WhatsApp 1<input data-setting="whatsapp1" placeholder="5215512345678"></label><label>WhatsApp 2<input data-setting="whatsapp2" placeholder="5215512345678"></label>
+<label>WhatsApp 1<input data-setting="whatsapp1" placeholder="5215512345678"></label><label>WhatsApp 2<input data-setting="whatsapp2" placeholder="5215512345678"></label><label>URL PayPal<input data-setting="paypalUrl" type="url" placeholder="https://paypal.me/tu-cuenta"></label><label>URL Mercado Pago<input data-setting="mercadoPagoUrl" type="url" placeholder="https://link.mercadopago.com.mx/tu-cuenta"></label>
 <label>Logo (URL)<input data-setting="logo"></label><label>Imagen de portada (URL)<input data-setting="heroImage"></label>
 <label>Color principal<input type="color" data-setting="accent"></label><label>Color de fondo<input type="color" data-setting="background"></label>
 </div><button class="button full" id="saveSettings">Guardar configuración</button></div>
